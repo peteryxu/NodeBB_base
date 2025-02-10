@@ -1,0 +1,21 @@
+sequenceDiagram
+    participant User
+    participant UI as UI Component
+    participant Composer as Composer Controller
+    participant API as API Endpoint
+    participant Topics as Topics Module
+    participant Posts as Posts Module
+    participant DB as Database
+
+    User->>UI: Click "Quick Reply"
+    UI->>Composer: Open composer component
+    User->>Composer: Submit post form
+    Composer->>API: Send post data
+    API->>Composer: Receive post data
+    Composer->>Topics: Call topics.reply or topics.post
+    Topics->>Posts: Create post in database
+    Posts->>DB: Store post data
+    DB->>Posts: Confirm post creation
+    Posts->>Topics: Return post creation result
+    Topics->>Composer: Return post creation result
+    Composer->>User: Redirect to new post or topic
